@@ -1,0 +1,28 @@
+.dialogs{
+    display: grid;
+    /* grid-template-rows: 1fr; */
+    grid-template-columns: 1fr  4fr 1fr;
+
+    /* grid-template-areas: 
+    "ditems m"  
+    ; */
+}
+.active {
+    color:gold
+}
+.dialogsItems{
+    /* grid-area: ditems; */
+    background-color: violet;
+    padding: 15px;
+}
+.messages {
+    /* grid-area: m; */
+    background: yellow;
+    padding: 5px;
+}
+
+.messages2 {
+    /* grid-area: m; */
+    background: blue;
+    padding: 5px;
+}
