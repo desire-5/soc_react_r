@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './Dialogs.module.css'
-import { NavLink } from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
+// import { addMessage, updateMessage} from '../../redux/dialogs-reducer';
 
 const Dialogs = (props)=>{
 // debugger;
@@ -15,35 +15,32 @@ const Dialogs = (props)=>{
     //     {id: 5, name: 'James' },
     // ]
 
-    // let mesagesData = [
-    //     {id: 1, message: 'hello' },
-    //     {id: 2, message: ')))))' },
-    //     {id: 3, message: 'i am js' },
-    //     {id: 4, message: 'react' },
-    //     {id: 5, message: 'nodejs' },
-    // ]
-    
-    let dialogsElements = props.dialogsPage.dialogsData.map((d) => {
-        return  <DialogItem name={d.name} id={d.id}/>
+    // let store = props.store.getState().dialogsPage;
+
+    let dialogsElements = props.dialogsData.map((d) => {
+        return  <DialogItem name={d.name} id={d.id} key={d.id}/>
     })
     
-    let messagesElements = props.dialogsPage.mesagesData.map( m => <Message message={m.message} />)
+    let messagesElements = props.mesagesData.map( m => <Message message={m.message} />)
     
-    let text_message = React.createRef();
+    // let text_message = React.createRef();
 
 
     let addNewMessage = () =>{
-        let value1 = text_message.current.value;
-        alert(value1);
-        props.addMessage(value1);
+        // let value1 = text_message.current.value;
+        props.addNewMessage();
+
+        //was before without componnet of conteiner 
+        // props.store.dispatch(addMessage());
     }
-    let onChangeHandler =()=>{
-        let value = text_message.current.value;
-        console.log(value);
-        props.updateMessage(value);
-        // alert(value)
-        
+    let onChangeHandler = (e) =>{
+    //     // let value = text_message.current.value;
+        let value = e.target.value;
+        props.updNewMessage(value);
+    //     console.log(value);
+    //     props.store.dispatch(updateMessage(value)); //was before without componnet of conteiner       
     }
+
     return (
         <div className={s.dialogs}>
            <div className={s.dialogsItems}>
@@ -56,7 +53,8 @@ const Dialogs = (props)=>{
               {/* <Message message='blaaa1' /> */}
 
                 <div>
-                  <textarea ref={text_message} onChange={onChangeHandler} value={props.dialogsPage.startMessage}></textarea>
+                  <textarea  onChange={onChangeHandler} value={props.startMessage}></textarea>
+                  {/* <textarea ref={text_message} onChange={onChangeHandler} value={store.startMessage}></textarea> */}
                 </div>
                     <div><button onClick={addNewMessage} >Send message</button></div>
            </div>

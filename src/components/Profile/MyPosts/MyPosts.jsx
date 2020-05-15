@@ -1,44 +1,45 @@
 import React from 'react'
 import s from './MyPosts.module.css'
 import Post from '../Post/Post'
+import { addPostActionCreator, updateNewPostText } from '../../../redux/profile-reducer';
+
 
 console.log(s);
 
 const MyPosts = (props)=>{
-  // debugger;
-
-  // let messageData = [
-  //   {message: 'hello 1234', likesCount: 222, age:23},
-  //   {message: 'how are you', likesCount: 1},
-  // ]
+   //debugger;
   let messagesElements = props.posts.map(m => <Post message={m.message} age={m.age} likesCount={m.likesCount} key={m.id}/> )
   
-  let newPostElement = React.createRef();
+  // let newPostElement = React.createRef();
   
-  let addPost = () => {
+  
+  let onAddPost = () => {
     // debugger;
-    // let text = newPostElement.current.value; //onchage now take val
-    // newPostElement.current.value = '';
+    //props.dispatch(addPostActionCreator());
     props.addPost();
-    // props.updateNewPostText1('');
-    // console.log(props);
   }
 
-  let onPostChange = () => {
-    let text = newPostElement.current.value;
+  let onPostChange = (e) => {
+    // debugger;
+    // let text = newPostElement.current.value;
+    let text = e.target.value;
     console.log('text',text);
-    // props.updateNewPostText1(text);
-    props.updateNewPostText1(text);
-    
+
+    props.updateNewPostText(text);
+    // props.dispatch(updateNewPostText(text));
+
+    // props.dispatch({type:'UPDATE_NEW_POST_TEXT',newText:text});  //it was before
+
   }
     return (
       <div className={s.myposts}><h3>My posts</h3>
         <div>
           <div>
-          <textarea onChange={onPostChange} ref={newPostElement} cols="30" rows="4" 
+          {/* ref={newPostElement} */}
+          <textarea onChange={onPostChange}  cols="30" rows="4" 
                     value={props.newPostText}></textarea>
           </div>
-          <button onClick={ addPost }>Add post</button>
+          <button onClick={ onAddPost }>Add post</button>
         </div>
         <div className={s.posts}>new post</div>
         <div >
