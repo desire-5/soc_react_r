@@ -1,0 +1,17 @@
+.main_wrapper{
+    padding: 10px;
+}
+.image {
+    width: 50px;
+    height: 50px;
+}
+.currentPage {
+    font-weight: bold;
+    color:white;
+    font-size: 22px;
+}
+.pagination{
+    margin: 5px;
+    cursor:pointer;
+    
+}

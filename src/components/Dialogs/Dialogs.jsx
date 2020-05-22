@@ -8,10 +8,6 @@ const Dialogs = (props)=>{
 // debugger;
     // isset in app.js
     // let dialogsData = [
-    //     {id: 1, name: 'Bobe' },
-    //     {id: 2, name: 'Jonatan' },
-    //     {id: 3, name: 'Huston' },
-    //     {id: 4, name: 'Mars' },
     //     {id: 5, name: 'James' },
     // ]
 

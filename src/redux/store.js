@@ -1,3 +1,6 @@
+// example
+// How works redux inside
+
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 
@@ -54,7 +57,9 @@ let store = {
         this._callSubsciber(this._state);
     },
 
-   
+    subscribe(observer) {
+        this._callSubsciber = observer;
+    }
     
     // addMessage(newMess){
     //     let newMessobj = {
@@ -65,10 +70,6 @@ let store = {
     //     this.updateMessage('');
     // },
     
-    
-    subscribe(observer) {
-        this._callSubsciber = observer;
-    }
 }
 window.store = store;
 

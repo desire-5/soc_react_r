@@ -30,23 +30,56 @@ let  initialState= {
 
 const dialogsReducer = (state=initialState, action) => {
     // debugger;
+    // let copyState;
+
     switch(action.type){
         case ADD_MESSAGE:
-            let newMessobj = {
-                id: 44, message: state.startMessage
-               //  id: 44, message: action.newMess 
-           }
-           state.mesagesData.push(newMessobj);
-           state.startMessage = '';
+        
+        let body = state.startMessage;
+        return {
+            ...state,
+            startMessage: '',
+            mesagesData: [...state.mesagesData, {id:55, message:body}],
+            
+        }
+
+        // copyState = {
+        //     ...state,
+        //     startMessage: '',
+        //     mesagesData:[...state.mesagesData, 
+        //         { id: 44, message: body} ]   
+        //    }
+
+//     let newMessobj = {
+        //         id: 44, message: state.startMessage
+        //    } 
+
+        //    copyState.mesagesData = [...state.mesagesData, newMessobj]
+          
+        //    copyState.mesagesData = [...state.mesagesData];
+        //    copyState.mesagesData.push(newMessobj);
+        //    copyState.startMessage = '';
+           
+        //    state.mesagesData.push(newMessobj);
+        //    state.startMessage = '';
         //    this._callSubsciber(this._state);
         //    this.dispatch(updateMessage(''));
-           return state;
-        case UPDATE_MESSAGE:
-            state.startMessage = action.newMessUpd;
+
+        case UPDATE_MESSAGE: {
+            // let copyState = {...state};
+            // copyState.startMessage = action.newMessUpd;
+            return {
+                ...state, 
+                startMessage: action.newMessUpd
+            }
+        }
+            // state.startMessage = action.newMessUpd;
             // this._callSubsciber(this._state);
-            return state;
+            // return state;
         
         default: return state;
     }
 }
+
 export default dialogsReducer;
+

@@ -1,9 +1,32 @@
 import React from 'react'
 import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profile-reducer';
 import MyPosts from './MyPosts';
-import StoreContext from '../../../StoreContext';
+// import StoreContext from '../../../StoreContext'; //dont use
+import { connect } from 'react-redux';
 
-const MyPostsContainer = (props)=>{
+let mapStateToProps = (state) => {
+    return {
+        newPostText:state.profilePage.newPostText,
+        posts:state.profilePage.posts
+    }
+}
+let mapDispatchToProps = (dispatch) => ({
+    updateNewPostText: (text)=>{
+        let action = updateNewPostTextActionCreator(text);
+        dispatch(action);
+    },
+    addPost: () => {
+        dispatch(addPostActionCreator());
+    }
+})
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+
+export default MyPostsContainer
+
+// describe  CONTAINER COMPONENT throw own CONTEXT without react-redux!
+
+
+// const MyPostsContainer = (props) => {
 
     //debugger;
 //   let state = props.store.getState();
@@ -21,32 +44,35 @@ const MyPostsContainer = (props)=>{
 //     // props.updateNewPostText1(text);
     
 //   }
-    return (
-        <StoreContext.Consumer>
-            { store => {
-                let state = store.getState();
-                let addPost = () => {
-                    // debugger;
-                    store.dispatch(addPostActionCreator());
-                }
+ 
+    // return (
+      
+        // <StoreContext.Consumer>
+        //     { store => {
+        //         let state = store.getState();
+        //         let addPost = () => {
+        //             // debugger;
+        //             store.dispatch(addPostActionCreator());
+        //         }
         
-                let onPostChange = (text) => {
-                    // debugger;
-                    let action = updateNewPostTextActionCreator(text);
-                    store.dispatch(action);
-                }
-                return <MyPosts updateNewPostText = {onPostChange} addPost={addPost}
-                    newPostText={state.profilePage.newPostText} 
-                    posts={state.profilePage.posts}/>
+        //         let onPostChange = (text) => {
+        //             // debugger;
+        //             let action = updateNewPostTextActionCreator(text);
+        //             store.dispatch(action);
+        //         }
+        //         return <MyPosts updateNewPostText = {onPostChange} addPost={addPost}
+        //             newPostText={state.profilePage.newPostText} 
+        //             posts={state.profilePage.posts}/>
 
-            /* use withot context */
-            /* <MyPosts updateNewPostText = {onPostChange} addPost={addPost}
-                    newPostText={state.profilePage.newPostText} 
-                    posts={props.store.getState().profilePage.posts}/> */
+        //     /* use withot context */
+        //     /* <MyPosts updateNewPostText = {onPostChange} addPost={addPost}
+        //             newPostText={state.profilePage.newPostText} 
+        //             posts={props.store.getState().profilePage.posts}/> */
             
-            }}
-        </StoreContext.Consumer>
-    )
-}
-
-export default MyPostsContainer
+        //     }}
+        // </StoreContext.Consumer>
+       
+    // );
+   
+// }
+// export default MyPostsContainer

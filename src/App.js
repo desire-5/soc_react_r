@@ -8,6 +8,8 @@ import Dialogs from './components/Dialogs/Dialogs'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+// import Users from './components/Users/Users'
+import UsersContainer from './components/Users/Users.container';
 
 function  App(props) {
 //  debugger;
@@ -40,6 +42,8 @@ function  App(props) {
           // dispatch={props.dispatch}
               // updateMessage={props.updateMessage} addMessage={props.addMessage}
           /> }/>
+
+          <Route path='/users' render={ () => <UsersContainer/>  }/>
 
         <Route path='/news' component={News} />
         <Route path='/music' component={Music}/>
