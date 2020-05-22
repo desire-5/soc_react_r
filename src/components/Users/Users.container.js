@@ -3,7 +3,8 @@ import { checkFollow, setUsers, setCurPage,setTotalCountPage,setIsFetching} from
 import Users from './Users';
 import {connect} from 'react-redux'
 import  * as axios from 'axios';
-import pre from '../../assets/images/pre.gif'
+import Preloader from '../Preloader/Preloader'
+// import pre from '../../assets/images/pre.gif'
 // import UsersApiContainer from './UsersApiContainer';
 
 
@@ -50,9 +51,9 @@ class UsersApiContainer extends React.Component {
     //     }
     // }
     render() { 
-    
+    // <Preloader/>
         return <>
-            {this.props.isFetching == true? <img src={pre}></img> :null}
+            {this.props.isFetching == true? <Preloader/> :null}
             <Users 
                     totalPages={this.props.totalPages} 
                     // onClickHendler = {this.props.onClickHendler}
@@ -80,7 +81,7 @@ let mapStateToProps = (state) => {
 
 // debugger 
 
-// full version
+// full version before
 // let mapDispatchToProps = (dispatch1) => ({
 
 //     check_follow: (userId,follow) => dispatch1(checkFollowAC(userId,follow)),

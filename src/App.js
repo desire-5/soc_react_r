@@ -10,6 +10,7 @@ import Music from './components/Music/Music'
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 // import Users from './components/Users/Users'
 import UsersContainer from './components/Users/Users.container';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 function  App(props) {
 //  debugger;
@@ -22,7 +23,7 @@ function  App(props) {
         
         {/* <Route path='/profile' component={Profile}/> */}
 
-        <Route path='/profile' render={() => <Profile   
+        <Route path='/profile' render={() => <ProfileContainer
 
         // <Route path='/profile' render={() => <Profile  store={props.store} // use witount context
 

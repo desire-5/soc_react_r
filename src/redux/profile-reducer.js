@@ -1,18 +1,22 @@
 // action type
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const ADD_POST = 'ADD_POST';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 // action creator
 export const addPostActionCreator = () => ({type:ADD_POST}) 
 export const updateNewPostTextActionCreator = (text) => ({
     type: UPDATE_NEW_POST_TEXT, newText:text
 })
-let initialState ={
+export const setUserProfile = (user_info)=> ({type: SET_USER_PROFILE, user_info})
+
+let initialState = { 
     posts: [
         {id: 1, message: 'hello 1234', likesCount: 222, age:23},
         {id: 2, message: 'how are you', likesCount: 1}
     ],
-    newPostText:'take js'
+    newPostText:'take js',
+    profile: null,
 }
 const profileReducer = (state=initialState, action) => {
     // debugger;
@@ -48,6 +52,11 @@ const profileReducer = (state=initialState, action) => {
             // state.newPostText ='';
             // this._callSubsciber(this._state); 
             // return copyState;
+        }
+        case SET_USER_PROFILE: 
+            return {
+                ...state,
+                profile: action.user_info
         }
         default:  return state;
     }   

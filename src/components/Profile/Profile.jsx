@@ -6,10 +6,10 @@ import MyPostsContainer from './MyPosts/MyPostsContainer';
 console.log(s);
 
 const Profile = (props)=>{
-   //debugger;
+   debugger;
     return (
       <div >
-        <Profileinfo />
+        <Profileinfo profile = {props.profile}/>
         
         <MyPostsContainer />
 
