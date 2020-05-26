@@ -1,9 +1,10 @@
 import React from 'react';
-import { checkFollow, setUsers, setCurPage,setTotalCountPage,setIsFetching} from '../../redux/usersReducer';
+import { checkFollow, setUsers, setCurPage,setTotalCountPage,setIsFetching,toggleFollowingProgress, getUsers,follow,unfollow} from '../../redux/usersReducer'; // action creator
 import Users from './Users';
 import {connect} from 'react-redux'
 import  * as axios from 'axios';
 import Preloader from '../Preloader/Preloader'
+// import {usersAPI} from '../../api/api'
 // import pre from '../../assets/images/pre.gif'
 // import UsersApiContainer from './UsersApiContainer';
 
@@ -20,26 +21,43 @@ class UsersApiContainer extends React.Component {
     }
     componentDidMount(){
         // alert('did mount')
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`).then(res => {
-            // debugger
-            this.props.setUsers(res.data.items)
-            // this.props.setCurPage(this.props.currentPage)
-            // this.props.setTotalCountPage(res.data.totalCount)
-        })
+        
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`,{
+        //     withCredentials:true,
+        // })
+
+        this.props.getUsers(this.props.pageSize,this.props.currentPage); //thunk
+        //before use thunk
+        // this.props.setIsFetching(true)
+        // usersAPI.getUsers(this.props.pageSize, this.props.currentPage).then(res => {
+        //     // debugger
+        //     this.props.setUsers(res.items) // recive only data from usersAPI returned promise
+        //     this.props.setIsFetching(false)
+        //     // this.props.setCurPage(this.props.currentPage)
+        //     // this.props.setTotalCountPage(res.data.totalCount)
+        // })
+        //end
     }
     onClickHendler = (curPage) =>{
         // debugger
         // this.props.isFetching = true;
-        this.props.setIsFetching(true)
-        this.props.setCurPage(curPage);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${curPage}`).then(res => {
-            // debugger
-            this.props.setUsers(res.data.items)
-            this.props.setIsFetching(false)
-            // this.props.isFetching = false;
-           
-            
-        })
+
+        this.props.getUsers(this.props.pageSize,curPage); //thunk
+
+        
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${curPage}`,{
+        //     withCredentials:true,
+        // })
+
+        // this.props.setIsFetching(true)
+        // this.props.setCurPage(curPage);
+        // usersAPI.getUsers(this.props.pageSize, curPage)
+        // .then(res => {
+        //      //debugger
+        //     this.props.setUsers(res.items)
+        //     this.props.setIsFetching(false)
+        //     // this.props.isFetching = false; //bad
+        // })
     }
     
     // getUsers = () => {
@@ -61,8 +79,12 @@ class UsersApiContainer extends React.Component {
                     pageSize = {this.props.pageSize}
                     onClickHendler = {this.onClickHendler}
                     currentPage = {this.props.currentPage}
-                    check_follow={this.props.checkFollow}
+                    // check_follow={this.props.checkFollow}
                     isFetching = {this.props.isFetching}
+                    followingInProgress = {this.props.followingInProgress}
+                    // toggleFollowingProgress = {this.props.toggleFollowingProgress}
+                    follow = {this.props.follow}
+                    unfollow = {this.props.unfollow} // thunk
                     
              />
         </>
@@ -75,7 +97,8 @@ let mapStateToProps = (state) => {
        totalPages: state.usersPage.totalPages,
        currentPage: state.usersPage.currentPage,
        pageSize: state.usersPage.pageSize,
-       isFetching: state.usersPage.isFetching
+       isFetching: state.usersPage.isFetching,
+       followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -97,10 +120,14 @@ let mapStateToProps = (state) => {
 //key checkFollow is = link to AC checkFollow
 const UsersContainer = connect(mapStateToProps, {
     checkFollow,
-    setUsers,
-    setCurPage,
-    setTotalCountPage,
-    setIsFetching
+    //setUsers,
+    //setCurPage,
+    // setTotalCountPage,
+    // setIsFetching,
+    toggleFollowingProgress, 
+    getUsers,
+    follow,
+    unfollow
 })(UsersApiContainer);
 
 // const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiContainer)

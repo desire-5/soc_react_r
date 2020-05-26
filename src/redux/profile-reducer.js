@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 // action type
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const ADD_POST = 'ADD_POST';
@@ -60,5 +62,16 @@ const profileReducer = (state=initialState, action) => {
         }
         default:  return state;
     }   
+}
+
+// thunk
+export const getProfileInfo = (user_id) => {
+    // debugger
+    return dispatch => {
+        usersAPI.getProfile(user_id)
+        .then(res => {
+           dispatch(setUserProfile(res.data)) 
+        })
+    }
 }
 export default profileReducer;

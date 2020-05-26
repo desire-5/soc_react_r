@@ -14,6 +14,7 @@ const Profileinfo = (props)=>{
         </div>
         <div className={s.profile_info}>
     <div>Name - {props.profile.fullName}</div>
+   <div><img src={props.profile.photos.small}></img></div>
 
           ava + desc info
         </div>

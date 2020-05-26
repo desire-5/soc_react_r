@@ -6,3 +6,11 @@
   header img{
     width: 80px;
   }
+  .auth_block{
+    float: right;
+  }
+  .auth_block a{
+    color:white;
+    margin-right: 10px;
+    
+  }
