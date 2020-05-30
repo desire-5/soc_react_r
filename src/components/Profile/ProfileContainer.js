@@ -2,18 +2,25 @@ import React from 'react'
 import Profile from './Profile'
 import  * as axios from 'axios';
 import { connect } from 'react-redux';
-import { setUserProfile , getProfileInfo} from '../../redux/profile-reducer';
-import { withRouter } from 'react-router-dom';
-import { usersAPI } from '../../api/api';
+import { setUserProfile, getProfileInfo, getUserStatus,updateUserStatus} from '../../redux/profile-reducer';
+import { withRouter, Redirect } from 'react-router-dom';
+// import { usersAPI } from '../../api/api';
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 class ProfileContainer extends React.Component{
 
     componentDidMount() {
-        
+       
         let user_id = this.props.match.params.user_id; // user from app.js route path
-        if(!user_id) user_id = 2;
-        // debugger
+        if(!user_id) user_id = 8352;
+        
         this.props.getProfileInfo(user_id);
+        // setTimeout(()=>{
+            this.props.getUserStatus(user_id);
+        // },1000)
+        // this.props.getUserStatus(user_id);
+
         // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${user_id}`)
         //  usersAPI.getProfile(user_id)
         // .then(res => {
@@ -22,16 +29,50 @@ class ProfileContainer extends React.Component{
 
     }
     render () {
-        // debugger
-        return <Profile {...this.props} profile={this.props.profile}/>
+       
+        // alert(this.props.auth)
+    //    let withAuthRedirect =  withAuthRedirect(ProfileContainer)
+        // if(!this.props.auth) return <Redirect to='/login'/>
+
+        return <Profile {...this.props} profile={this.props.profile} 
+                    status={this.props.status} updateUserStatus={this.props.updateUserStatus}/>
     }
 }
 
-let mapStateToProps = (state)=> ({profile: state.profilePage.profile});
+let mapStateToProps = (state)=> ({
+    profile: state.profilePage.profile,
+    status: state.profilePage.status
+    // auth: state.auth.isAuth //this prop recive from hoc
+});
 
-let WithUrlRouterParams = withRouter(ProfileContainer);
+export default compose(
+    connect(mapStateToProps, {
+            // setUserProfile,
+            getProfileInfo,
+            getUserStatus,
+            updateUserStatus
+        } ),
+    withRouter,
+    // withAuthRedirect
+)(ProfileContainer)
 
-export default connect(mapStateToProps, {
-    // setUserProfile,
-    getProfileInfo
-} )(WithUrlRouterParams);
+// let AuthRedirectComponent = (props) => {
+//     if(!this.props.auth) return <Redirect to='/login'/>
+//     return <ProfileContainer {...this.props}/>
+// }
+
+// good
+// let withAuthRedirectCon =  withAuthRedirect(ProfileContainer);
+
+// let mapStateToPropsForRedirect = (state)=> ({
+//     auth: state.auth.isAuth
+// });
+// withAuthRedirectCon = connect(mapStateToPropsForRedirect)(withAuthRedirectCon)
+
+
+// let WithUrlRouterParams = withRouter(ProfileContainer); //withAuthRedirectCon
+
+// export default withAuthRedirect(connect(mapStateToProps, {
+//     // setUserProfile,
+//     getProfileInfo
+// } )(WithUrlRouterParams));

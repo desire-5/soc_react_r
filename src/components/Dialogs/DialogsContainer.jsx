@@ -2,13 +2,16 @@ import React from 'react';
 import { addMessageActionCreator, updateMessageActionCreator} from '../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
 import {connect} from 'react-redux'
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
+import {compose} from 'redux'
 // import StoreContext from '../../StoreContext'; // dont use now. use connect
 
 let mapStateToProps = (state) => {
     return {
         startMessage: state.dialogsPage.startMessage,
         dialogsData: state.dialogsPage.dialogsData,
-        mesagesData: state.dialogsPage.mesagesData
+        mesagesData: state.dialogsPage.mesagesData,
+        // auth: state.auth.isAuth,
     }
 }
 
@@ -16,9 +19,19 @@ let mapDispatchToProps = (dispatch) => ({
     addNewMessage: () => dispatch(addMessageActionCreator()),
     updNewMessage: (val) => dispatch(updateMessageActionCreator(val))
 })
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
-export default DialogsContainer;
+
+//before compose
+// let withRedirect = withAuthRedirect(Dialogs);
+// const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(withRedirect)
+
+// const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+    )(Dialogs);
+// export default DialogsContainer;
 
 //old version with own context and own created container of componet!
 

@@ -2,10 +2,10 @@ import React from 'react'
 import Header from './Header'
 import {setDataUserAuth,setIsFetching,getDataUserAuth} from '../../redux/auth-reducer'
 
-import * as axios from 'axios'
+// import * as axios from 'axios'
 import { connect } from 'react-redux'
 import Preloader from '../Preloader/Preloader'
-import { authAPI } from '../../api/api'
+// import { authAPI } from '../../api/api'
 class HeaderComponent extends React.Component {
 
     componentDidMount() {

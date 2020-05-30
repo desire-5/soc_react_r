@@ -34,6 +34,7 @@ const authReducer = (state=initialState, action) => {
 }
 export const getDataUserAuth = () => 
     dispatch => {
+        // debugger
         dispatch(setIsFetching(true))
         authAPI.me()
         .then(res => {

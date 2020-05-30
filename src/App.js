@@ -12,6 +12,7 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/Users.container';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderComponent from './components/Header/HeaderComponent';
+import Login from './components/Login/Login';
 
 function  App(props) {
 //  debugger;
@@ -24,7 +25,7 @@ function  App(props) {
         
         {/* <Route path='/profile' component={Profile}/> */}
 
-        <Route path='/profile/:user_id' render={() => <ProfileContainer
+        <Route path='/profile/:user_id?' render={() => <ProfileContainer
 
         // <Route path='/profile' render={() => <Profile  store={props.store} // use witount context
 
@@ -46,6 +47,8 @@ function  App(props) {
           /> }/>
 
           <Route path='/users' render={ () => <UsersContainer/>  }/>
+
+          <Route path='/login' render= {() => <Login/>} />
 
         <Route path='/news' component={News} />
         <Route path='/music' component={Music}/>

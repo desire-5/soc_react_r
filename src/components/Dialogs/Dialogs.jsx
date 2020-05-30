@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
+import { Redirect } from 'react-router-dom';
 // import { addMessage, updateMessage} from '../../redux/dialogs-reducer';
 
 const Dialogs = (props)=>{
@@ -36,6 +37,8 @@ const Dialogs = (props)=>{
     //     console.log(value);
     //     props.store.dispatch(updateMessage(value)); //was before without componnet of conteiner       
     }
+    // alert('1' + props.auth);
+    // if(!props.auth) return <Redirect to='/login'/>
 
     return (
         <div className={s.dialogs}>

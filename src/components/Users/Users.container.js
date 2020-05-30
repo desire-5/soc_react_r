@@ -1,9 +1,12 @@
 import React from 'react';
-import { checkFollow, setUsers, setCurPage,setTotalCountPage,setIsFetching,toggleFollowingProgress, getUsers,follow,unfollow} from '../../redux/usersReducer'; // action creator
+import { checkFollow, setUsers, setCurPage,setTotalCountPage,setIsFetching,
+    toggleFollowingProgress, getUsers,follow,unfollow} from '../../redux/usersReducer'; // action creator
 import Users from './Users';
 import {connect} from 'react-redux'
 import  * as axios from 'axios';
 import Preloader from '../Preloader/Preloader'
+import { Redirect } from 'react-router-dom';
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
 // import {usersAPI} from '../../api/api'
 // import pre from '../../assets/images/pre.gif'
 // import UsersApiContainer from './UsersApiContainer';
@@ -20,6 +23,7 @@ class UsersApiContainer extends React.Component {
         // }
     }
     componentDidMount(){
+        // debugger
         // alert('did mount')
         
         // axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`,{
@@ -70,6 +74,7 @@ class UsersApiContainer extends React.Component {
     // }
     render() { 
     // <Preloader/>
+    // if(!this.props.auth) return <Redirect to='/login'/>
         return <>
             {this.props.isFetching == true? <Preloader/> :null}
             <Users 
@@ -98,7 +103,8 @@ let mapStateToProps = (state) => {
        currentPage: state.usersPage.currentPage,
        pageSize: state.usersPage.pageSize,
        isFetching: state.usersPage.isFetching,
-       followingInProgress: state.usersPage.followingInProgress
+       followingInProgress: state.usersPage.followingInProgress,
+       auth: state.auth.isAuth
     }
 }
 
@@ -118,7 +124,8 @@ let mapStateToProps = (state) => {
 
 // connect 
 //key checkFollow is = link to AC checkFollow
-const UsersContainer = connect(mapStateToProps, {
+// withAuthRedirect - HOC
+const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
     checkFollow,
     //setUsers,
     //setCurPage,
@@ -128,7 +135,7 @@ const UsersContainer = connect(mapStateToProps, {
     getUsers,
     follow,
     unfollow
-})(UsersApiContainer);
+})(UsersApiContainer));
 
 // const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiContainer)
 export default UsersContainer;
