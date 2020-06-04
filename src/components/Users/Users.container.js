@@ -3,10 +3,11 @@ import { checkFollow, setUsers, setCurPage,setTotalCountPage,setIsFetching,
     toggleFollowingProgress, getUsers,follow,unfollow} from '../../redux/usersReducer'; // action creator
 import Users from './Users';
 import {connect} from 'react-redux'
-import  * as axios from 'axios';
+// import  * as axios from 'axios';
 import Preloader from '../Preloader/Preloader'
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
+import {getUserSuperSelector,getTotalPages,getcurrentPage,getPageSize,getIsFetching,getFollowingInProgress} from '../../redux/users-selectors'
 // import {usersAPI} from '../../api/api'
 // import pre from '../../assets/images/pre.gif'
 // import UsersApiContainer from './UsersApiContainer';
@@ -16,16 +17,11 @@ class UsersApiContainer extends React.Component {
     
     constructor (props){
         super(props);
-        // debugger
-        // alert('new');
         // if(this.props.users.length === 0){
             // axios.get("https://social-network.samuraijs.com/api/1.0/users").then(res => {})
         // }
     }
     componentDidMount(){
-        // debugger
-        // alert('did mount')
-        
         // axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`,{
         //     withCredentials:true,
         // })
@@ -43,12 +39,10 @@ class UsersApiContainer extends React.Component {
         //end
     }
     onClickHendler = (curPage) =>{
-        // debugger
         // this.props.isFetching = true;
 
         this.props.getUsers(this.props.pageSize,curPage); //thunk
 
-        
         // axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${curPage}`,{
         //     withCredentials:true,
         // })
@@ -73,13 +67,13 @@ class UsersApiContainer extends React.Component {
     //     }
     // }
     render() { 
+        console.log('RENDER USERS')
     // <Preloader/>
     // if(!this.props.auth) return <Redirect to='/login'/>
         return <>
             {this.props.isFetching == true? <Preloader/> :null}
             <Users 
                     totalPages={this.props.totalPages} 
-                    // onClickHendler = {this.props.onClickHendler}
                     users = {this.props.users}
                     pageSize = {this.props.pageSize}
                     onClickHendler = {this.onClickHendler}
@@ -89,25 +83,36 @@ class UsersApiContainer extends React.Component {
                     followingInProgress = {this.props.followingInProgress}
                     // toggleFollowingProgress = {this.props.toggleFollowingProgress}
                     follow = {this.props.follow}
-                    unfollow = {this.props.unfollow} // thunk
-                    
+                    unfollow = {this.props.unfollow} // thunk 
              />
         </>
     }
 }
-
+//selectors
 let mapStateToProps = (state) => {
+    console.log('mapStateToProps USERS')
     return {
-       users: state.usersPage.users,
-       totalPages: state.usersPage.totalPages,
-       currentPage: state.usersPage.currentPage,
-       pageSize: state.usersPage.pageSize,
-       isFetching: state.usersPage.isFetching,
-       followingInProgress: state.usersPage.followingInProgress,
-       auth: state.auth.isAuth
+       users: getUserSuperSelector(state),
+       totalPages: getTotalPages(state),
+       currentPage: getcurrentPage(state),
+       pageSize: getPageSize(state),
+       isFetching: getIsFetching(state),
+       followingInProgress: getFollowingInProgress(state),
+    //    auth: state.auth.isAuth
     }
 }
-
+// without selectors
+// let mapStateToProps = (state) => {
+//     return {
+//        users: getUsersSelect(state),
+//        totalPages: state.usersPage.totalPages,
+//        currentPage: state.usersPage.currentPage,
+//        pageSize: state.usersPage.pageSize,
+//        isFetching: state.usersPage.isFetching,
+//        followingInProgress: state.usersPage.followingInProgress,
+//     //    auth: state.auth.isAuth
+//     }
+// }
 // debugger 
 
 // full version before
@@ -125,7 +130,8 @@ let mapStateToProps = (state) => {
 // connect 
 //key checkFollow is = link to AC checkFollow
 // withAuthRedirect - HOC
-const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
+// withAuthRedirect(
+const UsersContainer = connect(mapStateToProps, {
     checkFollow,
     //setUsers,
     //setCurPage,
@@ -135,7 +141,7 @@ const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
     getUsers,
     follow,
     unfollow
-})(UsersApiContainer));
+})(UsersApiContainer);
 
 // const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiContainer)
 export default UsersContainer;

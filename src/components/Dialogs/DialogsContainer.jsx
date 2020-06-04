@@ -8,7 +8,7 @@ import {compose} from 'redux'
 
 let mapStateToProps = (state) => {
     return {
-        startMessage: state.dialogsPage.startMessage,
+        // startMessage: state.dialogsPage.startMessage,
         dialogsData: state.dialogsPage.dialogsData,
         mesagesData: state.dialogsPage.mesagesData,
         // auth: state.auth.isAuth,
@@ -16,8 +16,8 @@ let mapStateToProps = (state) => {
 }
 
 let mapDispatchToProps = (dispatch) => ({
-    addNewMessage: () => dispatch(addMessageActionCreator()),
-    updNewMessage: (val) => dispatch(updateMessageActionCreator(val))
+    addNewMessage: (val) => dispatch(addMessageActionCreator(val)),
+    // updNewMessage: (val) => dispatch(updateMessageActionCreator(val))
 })
 
 

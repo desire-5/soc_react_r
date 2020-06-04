@@ -6,6 +6,7 @@ import usersReducer from './usersReducer'
 import authReducer from "./auth-reducer";
 
 import { reducer as formReducer } from 'redux-form'
+import appReducer from "./app-reducer";
 
 
 
@@ -14,7 +15,8 @@ let reducers = combineReducers({
     dialogsPage: dialogsReducer, //create state for dialogsPage
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer,
 })
 
 const store = createStore(reducers,applyMiddleware(thunkMiddleware)); // store - create state profilePage dialogsPage

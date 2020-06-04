@@ -1,16 +1,16 @@
 import { usersAPI, profileAPI } from "../api/api";
 
 // action type
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+// const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 
 // action creator
-export const addPostActionCreator = () => ({type:ADD_POST}) 
-export const updateNewPostTextActionCreator = (text) => ({
-    type: UPDATE_NEW_POST_TEXT, newText:text
-})
+export const addPostActionCreator = (newPost) => ({type:ADD_POST, newPost}) 
+// export const updateNewPostTextActionCreator = (text) => ({
+//     type: UPDATE_NEW_POST_TEXT, newText:text
+// })
 export const setUserProfile = (user_info)=> ({type: SET_USER_PROFILE, user_info})
 
 export const setUserStatus = (status)=> ({type: SET_USER_STATUS, status})
@@ -20,7 +20,7 @@ let initialState = {
         {id: 1, message: 'hello 1234', likesCount: 222, age:23},
         {id: 2, message: 'how are you', likesCount: 1}
     ],
-    newPostText:'take js',
+    // newPostText:'take js',
     profile: null,
     status:''
     
@@ -28,11 +28,11 @@ let initialState = {
 const profileReducer = (state=initialState, action) => {
     // debugger;
     switch(action.type){
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
-            }
+        // case UPDATE_NEW_POST_TEXT:
+        //     return {
+        //         ...state,
+        //         newPostText: action.newText
+        //     }
             // let copyState = {...state};
             // copyState.newPostText = action.newText;
             
@@ -42,13 +42,14 @@ const profileReducer = (state=initialState, action) => {
         case ADD_POST:{
             let newObj = {
                 id: 55,
-                message: state.newPostText,
+                message: action.newPost,
+                // message: state.newPostText,
                 likesCount: 0
             }
             return {
                 ...state,
                 posts: [...state.posts, newObj],
-                newPostText:''
+                // newPostText:''
             }
             // let copyState = {...state};
             // copyState.posts = [...state.posts]
@@ -67,6 +68,7 @@ const profileReducer = (state=initialState, action) => {
         }
 
         case SET_USER_STATUS:
+            // debugger
             return {
                 ...state,
                 status: action.status
@@ -97,6 +99,7 @@ export const getUserStatus = (user_id) => {
 }
 
 export const updateUserStatus = (status)=> {
+    // debugger
     return dispatch => {
         profileAPI.updateStatus(status)
         .then(data => {

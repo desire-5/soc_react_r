@@ -13,7 +13,16 @@ class ProfileContainer extends React.Component{
     componentDidMount() {
        
         let user_id = this.props.match.params.user_id; // user from app.js route path
-        if(!user_id) user_id = 8352;
+        if(!user_id){
+            user_id = this.props.logined_user_id
+            //  user_id = 8352;
+         
+             if(!user_id){
+                 this.props.history.push('/login')
+             }
+        }
+
+        
         
         this.props.getProfileInfo(user_id);
         // setTimeout(()=>{
@@ -41,7 +50,8 @@ class ProfileContainer extends React.Component{
 
 let mapStateToProps = (state)=> ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    logined_user_id: state.auth.id
     // auth: state.auth.isAuth //this prop recive from hoc
 });
 

@@ -10,6 +10,10 @@ import { BrowserRouter } from 'react-router-dom';
 import {Provider} from 'react-redux'
 // import {Provider} from './StoreContext'; // dont use
 
+// example how work mapStateToprops
+// setInterval(()=>{
+//   store.dispatch({type:"TEST"})
+// }, 1000);  
 
 
 //  let rerenderEntireTree = (state) =>{

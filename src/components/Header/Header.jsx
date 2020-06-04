@@ -9,7 +9,11 @@ const Header = (props) => {
             <img  src='https://www.hatchwise.com/entry/L969100-20150201222814.png'/>
     <div className={s.auth_block}>
       
-            {props.user_auth_data.isAuth? props.user_auth_data.login : <NavLink to='/login'> Login </NavLink>} 
+            {props.user_auth_data.isAuth
+                ? <div> 
+                    {props.user_auth_data.login } - <button onClick={props.logout}>logout</button>
+                </div>
+                : <NavLink to='/login'> Login </NavLink>} 
         
     </div>
         </header>

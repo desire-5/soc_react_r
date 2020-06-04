@@ -17,7 +17,7 @@ export const setUsers = (users) => ({type: SET_USERS, users});
 export const setCurPage = (currentPage) => ({type: SET_CUR_PAGE, currentPage});
 export const setTotalCountPage = (count) => ({type: SET_TOTAL_COUNT_PAGE, count:count});
 export const setIsFetching = (is_fetching) => ({type: SET_IS_FETCHING, is_fetching});
-export const toggleFollowingProgress = (is_fetching, userId) => ({type:TOGGLE_IS_FOLLOWING_PROGRESS, is_fetching, userId})
+export const toggleFollowingProgress = (is_fetching, userId) => ({type:TOGGLE_IS_FOLLOWING_PROGRESS, is_fetching, userId});
 
 let  initialState= {
        users: [ 
@@ -42,6 +42,7 @@ let  initialState= {
         pageSize:3,
         isFetching: false,
         followingInProgress:[], // [22,1,4] userid
+        test:0,
        
         // followingInProgress:false
 
@@ -104,6 +105,12 @@ const usersReducer = (state=initialState, action) => {
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id != action.userId)
             }
+        case "TEST":
+            return{
+                ...state,
+                test: state.test+1
+
+            }
 
    
         default: return state;
@@ -115,11 +122,12 @@ const usersReducer = (state=initialState, action) => {
 export const getUsers=(pageSize,currentPage) => {
    return (dispatch) =>  {
         dispatch(setIsFetching(true))
-        usersAPI.getUsers(pageSize, currentPage).then(res => {
+        usersAPI.getUsers(pageSize, currentPage)
+            .then(res => {
             // debugger
-            dispatch(setUsers(res.items)) // recive only data from usersAPI returned promise
-            dispatch(setIsFetching(false))
-            dispatch(setCurPage(currentPage))
+                dispatch(setUsers(res.items)) // recive only data from usersAPI returned promise
+                dispatch(setIsFetching(false))
+                dispatch(setCurPage(currentPage))
             // this.props.setTotalCountPage(res.data.totalCount)
         })
     }

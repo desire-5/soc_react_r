@@ -1,0 +1,12 @@
+.wrapForm{
+    margin:20px;
+}
+
+.wrapForm input{margin: 10px;}
+
+.forSumaryError{
+    width: 135px;
+    border: 2px solid orangered;
+    padding: 5px;
+    color:rosybrown;
+}

@@ -1,14 +1,14 @@
 // action type
 const ADD_MESSAGE = 'ADD_MESSAGE';
-const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
+// const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 
 // action creator
-export const addMessageActionCreator = () => ({
-    type:ADD_MESSAGE
+export const addMessageActionCreator = (val) => ({
+    type:ADD_MESSAGE,val
 })
-export const updateMessageActionCreator = (val_upd) =>({
-    type:UPDATE_MESSAGE, newMessUpd: val_upd
-})
+// export const updateMessageActionCreator = (val_upd) =>({
+//     type:UPDATE_MESSAGE, newMessUpd: val_upd
+// })
 
 let  initialState= {
     dialogsData:[
@@ -25,7 +25,7 @@ let  initialState= {
         {id: 4, message: 'react' },
         {id: 5, message: 'nodejs' },
     ],
-    startMessage:'222'
+    // startMessage:'222'
 }
 
 const dialogsReducer = (state=initialState, action) => {
@@ -35,13 +35,28 @@ const dialogsReducer = (state=initialState, action) => {
     switch(action.type){
         case ADD_MESSAGE:
         
-        let body = state.startMessage;
+        // let body = state.startMessage;
+        let body = action.val
         return {
             ...state,
             startMessage: '',
             mesagesData: [...state.mesagesData, {id:55, message:body}],
             
         }
+        // case UPDATE_MESSAGE: {
+        //     // let copyState = {...state};
+        //     // copyState.startMessage = action.newMessUpd;
+        //     return {
+        //         ...state, 
+        //         startMessage: action.newMessUpd
+        //     }
+        // }
+            // state.startMessage = action.newMessUpd;
+            // this._callSubsciber(this._state);
+            // return state;
+        
+        default: return state;
+    }
 
         // copyState = {
         //     ...state,
@@ -65,20 +80,7 @@ const dialogsReducer = (state=initialState, action) => {
         //    this._callSubsciber(this._state);
         //    this.dispatch(updateMessage(''));
 
-        case UPDATE_MESSAGE: {
-            // let copyState = {...state};
-            // copyState.startMessage = action.newMessUpd;
-            return {
-                ...state, 
-                startMessage: action.newMessUpd
-            }
-        }
-            // state.startMessage = action.newMessUpd;
-            // this._callSubsciber(this._state);
-            // return state;
         
-        default: return state;
-    }
 }
 
 export default dialogsReducer;
