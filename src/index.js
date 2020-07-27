@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 import  store from './redux/redux-store';
 // import  state, {addPost, updateNewPostText, addMessage, updateMessage, subscribe} from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
@@ -15,9 +14,7 @@ import {Provider} from 'react-redux'
 //   store.dispatch({type:"TEST"})
 // }, 1000);  
 
-
 //  let rerenderEntireTree = (state) =>{
-  // debugger
     ReactDOM.render(
       <BrowserRouter>
         <Provider store={store}>
@@ -43,18 +40,3 @@ import {Provider} from 'react-redux'
 //   rerenderEntireTree(state);
 // });
 
-{/* <Browserrouter> */}
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     {/* <App mesagesData={mesagesData} posts={posts} dialogsData={dialogsData}/> */}
-//     <App state={state} addPost={addPost}/>
-    
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();

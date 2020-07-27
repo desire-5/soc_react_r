@@ -1,7 +1,7 @@
 import React from 'react'
 import { reduxForm, Field } from 'redux-form'
 import {required, maxLength} from '../../utils/validators'
-import { Input, Textarea } from '../common/FormsControls/FormsControls';
+import { Input, Textarea, createField} from '../common/FormsControls/FormsControls';
 import s from './Login.module.css'
 import { connect } from 'react-redux';
 import {login} from '../../redux/auth-reducer'
@@ -12,16 +12,18 @@ let LoginForm = (props) => {
     // debugger
     return (
         <form onSubmit={props.handleSubmit} className={s.wrapForm}>
-            <div>
+           { createField('Email','email', [required, maxLength25], Input ) }
+            {/* <div>
                 <Field  name={'email'} placeholder={'email'} component={Input} validate={[required, maxLength25]}/>
-            </div>
+            </div> */}
             <div>
                 <Field name={'password'}  placeholder={'password'} 
                         component={Input}  validate={[required, maxLength25]}/>
             </div>
-            <div>
-                <Field component="input" name='rememberMe'  type="checkbox" /> remember me
-            </div>
+            {/* <div> */}
+                {createField(null, 'rememberMe', [], Input, {type:"checkbox"}, 'remember me') }
+                {/* <Field component="input" name='rememberMe'  type="checkbox" /> remember me */}
+            {/* </div> */}
             { props.error &&
                 <div className={s.forSumaryError}>{props.error}</div>
             }
@@ -46,7 +48,7 @@ const Login = (props) =>{
         // debugger
         console.log('formData',formData)
         let {email, password, rememberMe} = formData;
-        //thunk
+        //thunk creator
         props.login(email, password, rememberMe)
     }
 

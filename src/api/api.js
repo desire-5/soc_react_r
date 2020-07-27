@@ -30,7 +30,7 @@ export const usersAPI = {
     },
 }
 
-export const profileAPI = {
+export const  profileAPI = {
     getProfile(user_id){
         return instance.get(`profile/${user_id}`)
      },
@@ -39,7 +39,22 @@ export const profileAPI = {
      },
      updateStatus(status){
          return instance.put(`profile/status`,{status:status})
-     }
+     },
+     savePhoto(photo){
+        const formData = new FormData();
+        // debugger
+        formData.append('image', photo)
+        return instance.put(`profile/photo`,formData, {
+            headers: {
+            'Content-Type': 'multipart/form-data'
+            }
+        }
+        );
+    },
+    saveProfileData(profile){
+        return instance.put(`profile`,profile)
+    },
+    
 }
 export const authAPI = {
     me(){
@@ -51,9 +66,7 @@ export const authAPI = {
     },
     logout(){
         return instance.delete(`auth/login`);
-       
-    }
-
+    },
 }
 
 // nstance.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${curPage}`

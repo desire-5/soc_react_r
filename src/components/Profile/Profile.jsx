@@ -9,7 +9,10 @@ const Profile = (props)=>{
   //  debugger;
     return (
       <div >
-        <Profileinfo profile = {props.profile} status={props.status} updateUserStatus={props.updateUserStatus}/>
+        <Profileinfo profile = {props.profile} status={props.status} 
+              updateUserStatus={props.updateUserStatus}
+              isOwner={props.isOwner} sendPhoto={props.sendPhoto}
+              sendProfileData={props.sendProfileData}/>
         
         <MyPostsContainer />
 

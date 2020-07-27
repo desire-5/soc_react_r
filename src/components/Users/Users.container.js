@@ -72,7 +72,7 @@ class UsersApiContainer extends React.Component {
     // if(!this.props.auth) return <Redirect to='/login'/>
         return <>
             {this.props.isFetching == true? <Preloader/> :null}
-            <Users 
+                <Users
                     totalPages={this.props.totalPages} 
                     users = {this.props.users}
                     pageSize = {this.props.pageSize}

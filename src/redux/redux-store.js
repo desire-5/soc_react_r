@@ -4,11 +4,8 @@ import profileReducer from './profile-reducer';
 import dialogsReducer from "./dialogs-reducer";
 import usersReducer from './usersReducer'
 import authReducer from "./auth-reducer";
-
 import { reducer as formReducer } from 'redux-form'
 import appReducer from "./app-reducer";
-
-
 
 let reducers = combineReducers({
     profilePage:profileReducer, //create state for profilePage
@@ -19,8 +16,7 @@ let reducers = combineReducers({
     app: appReducer,
 })
 
-const store = createStore(reducers,applyMiddleware(thunkMiddleware)); // store - create state profilePage dialogsPage
-
+const store = createStore(reducers,applyMiddleware(thunkMiddleware)); 
 window.store  = store;
 window.state  = store.getState();
 
